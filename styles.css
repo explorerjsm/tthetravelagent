@@ -8,13 +8,81 @@ body {
 }
 
 header {
-  background: #f4a261;
-  color: #fff;
-  padding: 1rem 0;
-  position: sticky;
-  top: 0;
+  background-image: url('culturljaisalmertour.jpeg'); /* Path to your image */
+  background-size: cover; /* Ensures the image covers the entire header */
+  background-position: center; /* Centers the image */
+  color: #fff; /* Text color */
+  padding: 1rem 0; /* Adjust padding as needed */
+  position: static; /* Keep this */
+  top: 0; /* Stick to the top */
   z-index: 1000;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Optional: Add a semi-transparent overlay for better text readability */
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4); /* Semi-transparent black overlay */
+  z-index: -1; /* Places the overlay behind the text */
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  position: relative; /* Ensures the navbar is above the overlay */
+  z-index: 1; /* Keeps the navbar above the overlay */
+}
+
+#animated-heading {
+  font-size: 2rem; /* Adjust as needed */
+  margin: 0;
+}
+
+nav a {
+  color: #fff; /* Link color */
+  text-decoration: none;
+  margin: 0 1rem;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline; /* Add hover effect */
+}
+
+/* Default (Light Mode) Styles */
+body {
+  background: #fff;
+  color: #333;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+  background: #1a1a1a;
+  color: #f0f0f0;
+}
+
+body.dark-mode header {
+  background-image: url('culturljaisalmertour.jpeg'); /* Optional: Use a darker image for dark mode */
+  color: #f0f0f0;
+}
+
+body.dark-mode nav a {
+  color: #f0f0f0;
+}
+
+body.dark-mode #dark-mode-toggle {
+  background: rgba(0, 0, 0, 0.5);
+  color: #f0f0f0;
 }
 
 .navbar {
@@ -40,25 +108,56 @@ header {
 }
 
 /* Hero Section */
+/* Hero Section with Video Background */
 .hero {
-  background: linear-gradient(
-      rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.5)
-    ),
-    url('hero.jpg') no-repeat center center/cover;
-  color: #fff;
+  position: relative;
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  padding: 150px 20px;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* Video Background */
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the video covers the entire hero section */
+  z-index: -1; /* Places the video behind the content */
+}
+
+/* Optional: Add a dark overlay for better text readability */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  z-index: 0; /* Places the overlay above the video but below the content */
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1; /* Ensures the content is above the video and overlay */
 }
 
 .hero-content h2 {
   font-size: 3rem;
   margin-bottom: 1rem;
+  animation: fadeInDown 1s ease-out; /* Animation */
 }
 
 .hero-content p {
   font-size: 1.2rem;
   margin-bottom: 1.5rem;
+  animation: fadeInUp 1s ease-out; /* Animation */
 }
 
 .hero-content .btn {
@@ -69,11 +168,14 @@ header {
   border-radius: 5px;
   text-decoration: none;
   font-size: 1rem;
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+  animation: fadeIn 1.5s ease-out; /* Animation */
 }
 
 .hero-content .btn:hover {
   background: #21867a;
+  transform: translateY(-3px); /* Hover effect */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Shadow on hover */
 }
 
 /* Section Titles */
@@ -83,6 +185,7 @@ section h2 {
   color: #f4a261;
   font-size: 2.5rem;
   text-transform: uppercase;
+  animation: fadeIn 1s ease-out; /* Animation */
 }
 
 /* Packages Section */
@@ -103,24 +206,31 @@ section h2 {
 }
 
 .package-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-10px); /* Hover effect */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
 }
 
 .package-card img {
   width: 100%;
   height: 200px;
   object-fit: cover;
+  transition: transform 0.3s; /* Hover effect for image */
+}
+
+.package-card:hover img {
+  transform: scale(1.1); /* Zoom in image on hover */
 }
 
 .package-card h3 {
   margin: 1rem 0;
   color: #333;
+  font-size: 1.5rem;
 }
 
 .package-card p {
   color: #666;
   margin: 0.5rem 0;
+  padding: 0 1rem;
 }
 
 .package-card button {
@@ -131,30 +241,110 @@ section h2 {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.3s;
 }
 
 .package-card button:hover {
   background: #e68a49;
+  transform: translateY(-3px); /* Hover effect */
+}
+
+/* Keyframe Animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-content h2 {
+    font-size: 2rem; /* Adjust font size for smaller screens */
+  }
+
+  .hero-content p {
+    font-size: 1rem; /* Adjust font size for smaller screens */
+  }
+
+  .package-grid {
+    padding: 0 5%; /* Reduce padding for smaller screens */
+  }
+
+  .package-card {
+    margin: 0 10px; /* Add margin for better spacing */
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 100px 20px; /* Adjust padding for mobile */
+  }
+
+  .hero-content h2 {
+    font-size: 1.5rem; /* Further adjust font size for mobile */
+  }
+
+  .hero-content p {
+    font-size: 0.9rem; /* Further adjust font size for mobile */
+  }
+
+  .package-grid {
+    grid-template-columns: 1fr; /* Single column layout for mobile */
+  }
 }
 
 /* Gallery Section */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
-  padding: 0 10%;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjust column width as needed */
+  gap: 15px; /* Space between images */
+  padding: 0 10%; /* Match your existing padding */
 }
 
 .gallery-grid img {
-  width: 100%;
+  width: 100%; /* Ensure images take up full grid cell width */
+  height: auto; /* Maintain aspect ratio */
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
+  object-fit: cover; /* Ensure images cover the grid cell without distortion */
+}
+.gallery-grid img {
+  height: 250px; /* Adjust height as needed */
+  object-fit: cover; /* Ensure images cover the area without distortion */
+}
+
+.gallery-grid img {
+  border: 2px solid gold; /* Temporary border for debugging */
 }
 
 .gallery-grid img:hover {
-  transform: scale(1.05);
+  transform: scale(1.04); /* Optional: Add hover effect */
 }
 
 /* Contact Section */
@@ -162,7 +352,7 @@ form {
   max-width: 600px;
   margin: 0 auto;
   padding: 1rem;
-  background: #fff;
+  background: #d39157;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -178,7 +368,7 @@ form textarea {
   width: 100%;
   padding: 10px;
   margin-bottom: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid #9e530c;
   border-radius: 5px;
 }
 
@@ -223,6 +413,226 @@ footer .social-icons img {
 
 footer .social-icons img:hover {
   transform: scale(1.2);
+}
+.package-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.package-card:hover {
+  transform: translateY(-10px); /* Move card up slightly */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Add shadow */
+}
+/* Dark Mode Styles */
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.dark-mode header,
+.dark-mode .hero,
+.dark-mode .package-card,
+.dark-mode footer {
+  background-color: #1f1f1f;
+  color: #ffffff;
+}
+
+.dark-mode .popup-content {
+  background-color: #1f1f1f;
+  color: #ffffff;
+}
+
+.dark-mode .navbar nav a {
+  color: #ffffff;
+}
+
+.dark-mode .package-card button {
+  background: #e68a49;
+}
+
+.dark-mode .package-card button:hover {
+  background: #f4a261;
+}
+
+.gallery-grid img {
+  background: #f0f0f0; /* Placeholder background color */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.gallery-grid img[data-src] {
+  opacity: 0; /* Hide images until they are loaded */
+  transition: opacity 0.3s;
+}
+
+.gallery-grid img.loaded {
+  opacity: 1; /* Show images after they are loaded */
+}
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  opacity: 0; /* Start invisible */
+  animation: fadeIn 1s ease-out forwards;
+}
+/* Button hover animation */
+.btn {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Package card hover animation */
+.package-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.package-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+/* Responsive Navbar */
+.navbar {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.navbar nav {
+  display: none; /* Hide nav links by default on mobile */
+  width: 100%;
+}
+
+.navbar nav a {
+  display: block;
+  margin: 10px 0;
+}
+
+/* Hamburger Menu */
+.menu-toggle {
+  display: none; /* Hide by default */
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Show menu toggle on small screens */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block; /* Show hamburger menu */
+  }
+
+  .navbar nav {
+    display: none; /* Hide nav links by default on small screens */
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .navbar nav.active {
+    display: flex; /* Show nav links when active */
+  }
+}
+
+/* Ensure nav links are visible on larger screens */
+@media (min-width: 769px) {
+  .navbar nav {
+    display: flex !important; /* Force display on larger screens */
+    flex-direction: row; /* Ensure links are in a row */
+    align-items: center; /* Align links vertically */
+    gap: 15px; /* Add space between links */
+  }
+}
+
+
+/* Responsive Hero Section */
+@media (max-width: 768px) {
+  .hero-content h2 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .hero-content .btn {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Typing animation */
+#animated-heading {
+  font-size: 3.5rem;
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 3s steps(20, end);
+  transition: color 0.3s ease, transform 0.3s ease;
+  background: linear-gradient(45deg, #f4a261, #e76f51, #e9c46a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  position:static; /* Ensure it scrolls normally */
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* Hover effect */
+#animated-heading:hover {
+  text-shadow: 0 0 10px #cd6d29, 0 0 20px , 0 0 40px #f4a261;
+  transform: scale(1.1);
+}
+
+/* Bounce animation */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* Background pulse effect */
+@keyframes pulse {
+  0%, 100% {
+    background-size: 100% 100%;
+  }
+  50% {
+    background-size: 150% 150%;
+  }
+}
+
+/* Apply animations */
+#animated-heading {
+  animation: typing 3s steps(20, end), bounce 5s infinite 0s, pulse 5s infinite;
+  animation-timing-function: ease-in-out;
+}
+
+/* Default (Light Mode) Styles */
+body {
+  background: #fff;
+  color: #333;
+  transition: background 0.3s, color 0.3s;
 }
 
   
